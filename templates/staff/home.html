@@ -1,0 +1,239 @@
+{% extends 'abstract_base_template.html' %}
+{% load static %}
+{% block headDivision %}
+<style>
+    .profilecontainer{
+        padding: 6% 25%;
+        width: 50%;
+    }
+    .userImage{
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+    .userDetailsTable{
+        font-weight: bold;
+        text-align: center; 
+        width:100%;
+    }
+    .thirdSection{
+        height: 30vh;
+        overflow-y: scroll;
+    }
+    table.userDetailsTable td{
+        width: 50%;
+    }
+    table.userDetailsTable tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+    .formfield {
+        box-sizing: border-box;
+        width: 100%;
+        display: block;
+        text-align: center;
+        height: 50px;
+        margin: 12px 0;
+    }
+    .fundTransfer{
+        padding: 50px;
+    }
+    .homePageContainer{
+        display:flex;
+        /* overflow-x: hidden; */
+    }
+    .userdetailswrapper{
+        padding:12px 0;
+    }
+    @media(max-width:800px){
+        .homePageContainer{
+            display:block;
+        }
+        .userDetailsTable{
+            font-size: small;
+        }
+    }
+    @media(max-aspect-ratio: 4/3 ){
+        .userDetailsTable{
+            margin:3% 0;
+        }
+        .profilecontainer{
+            padding:0;
+            width:100%;
+        }
+    }
+    .messages{
+        position: absolute;
+        top:9vh;
+        width: 50vw;
+        left:25vw;
+        right:25vw;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+    .message{
+        width: 50%;
+        border:1px solid green;
+        
+    }
+    .text-warning{color:#ffc107!important}a.text-warning:focus,a.text-warning:hover{color:#ba8b00!important}
+    .text-info{color:#17a2b8!important}a.text-info:focus,a.text-info:hover{color:#0f6674!important}
+    .btn-info{color:#fff;background-color:#17a2b8;border-color:#17a2b8}.btn-info:hover{color:#fff;background-color:#138496;border-color:#117a8b}.btn-info.focus,.btn-info:focus{color:#fff;background-color:#138496;border-color:#117a8b;box-shadow:0 0 0 .2rem rgba(58,176,195,.5)}.btn-info.disabled,.btn-info:disabled{color:#fff;background-color:#17a2b8;border-color:#17a2b8}.btn-info:not(:disabled):not(.disabled).active,.btn-info:not(:disabled):not(.disabled):active,.show>.btn-info.dropdown-toggle{color:#fff;background-color:#117a8b;border-color:#10707f}.btn-info:not(:disabled):not(.disabled).active:focus,.btn-info:not(:disabled):not(.disabled):active:focus,.show>.btn-info.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(58,176,195,.5)}
+    .btn-outline-info{color:#17a2b8;border-color:#17a2b8}.btn-outline-info:hover{color:#fff;background-color:#17a2b8;border-color:#17a2b8}.btn-outline-info.focus,.btn-outline-info:focus{box-shadow:0 0 0 .2rem rgba(23,162,184,.5)}.btn-outline-info.disabled,.btn-outline-info:disabled{color:#17a2b8;background-color:transparent}.btn-outline-info:not(:disabled):not(.disabled).active,.btn-outline-info:not(:disabled):not(.disabled):active,.show>.btn-outline-info.dropdown-toggle{color:#fff;background-color:#17a2b8;border-color:#17a2b8}.btn-outline-info:not(:disabled):not(.disabled).active:focus,.btn-outline-info:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-info.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(23,162,184,.5)}
+    .alert{position:relative;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem}.alert-heading{color:inherit}.alert-link{font-weight:700}.alert-dismissible{padding-right:4rem}.alert-dismissible .close{position:absolute;top:0;right:0;padding:.75rem 1.25rem;color:inherit}.alert-primary{color:#004085;background-color:#cce5ff;border-color:#b8daff}.alert-primary hr{border-top-color:#9fcdff}.alert-primary .alert-link{color:#002752}.alert-secondary{color:#383d41;background-color:#e2e3e5;border-color:#d6d8db}.alert-secondary hr{border-top-color:#c8cbcf}.alert-secondary .alert-link{color:#202326}.alert-success{color:#155724;background-color:#d4edda;border-color:#c3e6cb}.alert-success hr{border-top-color:#b1dfbb}.alert-success .alert-link{color:#0b2e13}.alert-info{color:#0c5460;background-color:#d1ecf1;border-color:#bee5eb}.alert-info hr{border-top-color:#abdde5}.alert-info .alert-link{color:#062c33}.alert-warning{color:#856404;background-color:#fff3cd;border-color:#ffeeba}.alert-warning hr{border-top-color:#ffe8a1}.alert-warning .alert-link{color:#533f03}.alert-danger{color:#721c24;background-color:#f8d7da;border-color:#f5c6cb}.alert-danger hr{border-top-color:#f1b0b7}.alert-danger .alert-link{color:#491217}.alert-light{color:#818182;background-color:#fefefe;border-color:#fdfdfe}.alert-light hr{border-top-color:#ececf6}.alert-light .alert-link{color:#686868}.alert-dark{color:#1b1e21;background-color:#d6d8d9;border-color:#c6c8ca}.alert-dark hr{border-top-color:#b9bbbe}.alert-dark .alert-link{color:#040505}
+</style>
+{% endblock headDivision %}
+{% block body %}
+{% include 'navbar.html' %}
+<div class="messages {% if messages is None %}displaynone{% endif %}">
+{% for i in messages %}
+    <div class="message alert alert-{% if i.tags == 'error'%}danger{% else %}{{i.tags}}{% endif %}" role="alert">[{{i.tags.upper}}]: {{i}}</div>
+{% endfor %}
+</div>
+
+<div class="homePageContainer">
+    <div class="grid">
+        <div class="grid">
+
+            <div class="userprofile profilecontainer">
+                <div class="userimagewrapper pad12_0">
+                    <img src="{% static 'user-avatar-2-circle_150px.png' %}" alt="ImageError" class="userImage">
+                </div>
+                <h3 class="text-center pad12_0">User profile</h3>
+                <div class="userdetailswrapper">
+                    <table class="userDetailsTable">
+                        <tr>
+                            <td>Full Name</td>
+                            <td>{{request.user.full_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Identity proof number</td>
+                            <td>{{request.user.citizenship_card_number}}</td>
+                        </tr>
+                        <tr>
+                            <td>Phone number</td>
+                            <td>{{request.user.phone_number}}</td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td>{{request.user.address}}</td>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>{{request.user.username}}</td>
+                        </tr>
+                        <tr>
+                            <td>Mail id</td>
+                            <td>{{request.user.email}}</td>
+                        </tr>
+                        <tr>
+                            <td>Mail Verified</td>
+                            <td>{{request.user.email_valid}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date of joining</td>
+                            <td>{{request.user.date_joined}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="grid">
+            
+            <div class="useraccount profilecontainer">
+                <div class="accountdetailswrapper">
+                    <h3 class="text-center pad12_0">Account</h3>
+                    <table class="userDetailsTable pad24_0">
+                        <tr>
+                            <td>Account number</td>
+                            <td>{{account.account_no}}</td>
+                        </tr>
+                        <tr>
+                            <td>Account type</td>
+                            <td>{% if account.account_type == 1 %}Savings{% elif account.account_type == 2 %}Current{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>Amount</td>
+                            <td style="color:darkgreen;"><h2 style="display: inline;">₹</h2><h2 id="amountvalue" style="display: inline;" target="{{account.amount}}"></h2></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="grid">
+        <h3 class="text-center pad24_0">Loan Accounts</h3>
+        <div class="thirdSection">
+            {% comment %} The below is to run template for a ManagaerObject {% endcomment %}
+            {% comment %} {% for i in loan_accounts %}
+            <table class="userDetailsTable pad12_0">
+                <tbody>
+                    <tr>
+                        <td>Account id</td>
+                        <td>{{i.account_no}}</td>
+                    </tr>
+                    <tr>
+                        <td>Loan Amount</td>
+                        <td style="color: red;"><h3 target="{{i.amount}}" id="amountvalue">₹</h3></td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endfor %} {% endcomment %}
+            {% comment %} The below is to run the template for loan_accounts object {% endcomment %}
+            {% if loan_accounts is not None %}
+            <table class="userDetailsTable pad12_0">
+                <tbody>
+                    <tr>
+                        <td>Account id</td>
+                        <td>{{loan_accounts.account_no}}</td>
+                    </tr>
+                    <tr>
+                        <td>Loan Amount</td>
+                        <td style="color: red;">
+                            <h3 style="display:inline;">₹</h3>
+                            <h3 style="display:inline;" id="amountvalue" target="{{loan_accounts.amount}}"></h3>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endif %}
+
+        </div>
+        <div class="grid">
+            <h3 class="text-center pad24_0">Transfer Funds</h3>
+            <form class="fundTransfer" method="POST">
+                {% csrf_token %}
+                <input type="text" name="accountno" id="id_accountno" class="formfield accountno" placeholder="Enter the accountno">
+                <input type="number" name="amount" id="id_amount" class="formfield amount" placeholder="Enter the amount">
+                <input type="text" name="username" id="id_username" class="formfield username" placeholder="Enter your username">
+                <input type="password" name="password" id="id_password" class="formfield password" placeholder="Enter your password">
+                <input type="submit" value="Transfer Funds" class="formfield">
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+
+const counters = document.querySelectorAll('#amountvalue');
+const speed = 200;
+counters.forEach( counter => {
+   const animate = () => {
+      const value = +counter.getAttribute('target');
+      const data = +counter.innerText;
+      const time = value / speed;
+     if(data < value) {
+          counter.innerText = Math.ceil(data + time);
+          setTimeout(animate, 1);
+        }else{
+          counter.innerText = value;
+        }
+   }
+   animate();
+});
+
+
+
+</script>
+
+{% endblock body %}

@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stark Banks</title>
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+    <style>
+        @font-face {
+            font-family: 'minstrel';
+            font-style: normal;
+            font-weight: bold;
+            src: local('minstrel'), url('/static/fonts/minstrelposterwhg/MinstrelPosterNF.otf') format('opentype');
+        }
+        *{margin:0;padding:0;}
+        html{margin:0;padding:0;}
+        body{padding:0;margin:0;}
+        .grid{height: 100%;width: 100%;}
+        .borderred{border:1px solid red;}
+        .displayflex{display: flex;}
+        .MenuIcon{height: 12px;}
+        .text-center{text-align:center;}
+        .pad12_0{padding:12px 0;}
+        .pad24_0{padding:24px 0;}
+        .pad0_12{padding:0 12px;}
+        .pad0_24{padding:0 24px;}
+        .pad6_0{padding:6px 0;}
+        .pad0_6{padding:0 6px;}
+        .pad24_24{padding:24px;}
+        .pad12_12{padding:12px;}
+        .pad6_6{padding:6px;}
+        .fontbold{font-weight:bold;}
+        .textcapitalize{text-transform: uppercase;}
+        .displaynone{display:none;}
+    </style>
+    {% block headDivision %}{% endblock headDivision %}
+</head>
+<body>
+    {% block body %}{% endblock body %}
+</body>
+</html>

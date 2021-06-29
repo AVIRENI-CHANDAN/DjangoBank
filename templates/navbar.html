@@ -1,0 +1,125 @@
+{% extends "abstract_base_template.html" %}
+{% load static %}
+{% block headDivision %}
+<style>
+    *{margin: 0;padding: 0;}
+    .container{
+        height: 10vh;
+        width: 100%;
+        background:rgba(0,0,0,0.05);
+        display: flex;
+    }
+    .navbarImage{position: relative;height: 10vh;}
+    .logoContainer{cursor: pointer;width: 30%;}
+    .textContainer{width: 70%;}
+    .companyName{
+        cursor: pointer;
+        font-size: xx-large;
+        font-family: 'minstrel';
+        text-shadow: 0 0 2px gray, 0 0 5px gray;
+    }
+    .logoutBtnContainer{margin-top: 5vh;transform: translateY(-50%);}
+    .loginBtnWrapper{margin-left: 50%;transform: translateX(-50%);}
+    .logoutBtn{
+        cursor: pointer;
+        width: 100%;
+        min-width: 80px;
+        height: 40px;
+        font-size: 18px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        box-shadow: 0 2px 6px #fd9b96;
+        background-color: #fc544b;
+        border-color: #fc544b;
+        border-radius: 50px;
+    }
+    .dropbtn {padding: 16px;font-size: 16px;border: none;}
+    .dropdown {
+        float: right;
+        /* position: absolute; */
+        display: inline-block;
+        right: 35px;
+        top:15px;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+    .dropdown-content a {
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    .dropdown-content a:hover {background-color: rgb(190, 231, 241);}
+    .dropdown:hover .dropdown-content {display: block;}
+    .logoutOption{color: red;}
+    .sec1{min-width: 380px;}
+    .viewInSmallScreen{display: none;}
+    small{font-size: 10px;}
+    @media(min-aspect-ratio: 4/3){
+        .sec3{
+            display:flex;
+        }
+    }
+    @media(max-aspect-ratio: 4/3 ){
+        .sec3{display:block;}
+        .sec3{overflow-y:scroll;}
+        .usernameDropdown{display:none;}
+        .viewInSmallScreen{display: inherit;}
+        .dropdown{top:0;}
+        .logoContainer{min-width:20vw;}
+    }
+    @media(max-width:688px){
+        .sec2{
+            display: none;
+        }
+    }
+    @media(max-width:550px){
+        .container{
+            display: block;
+            height:20vh;
+        }
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="grid sec1 displayflex">
+        <div class="logoContainer">
+            <img src="{% static 'logo.svg' %}" alt="Image Error" class="navbarImage">
+        </div>
+        <div class="textContainer">
+            <h1 class="companyName">Stark Banks</h1>
+        </div>
+    </div>
+    <div class="grid sec2">
+
+    </div>
+    <div class="grid sec3">
+        <div class="grid">
+            <div class="dropdown">
+                <button class="dropbtn displayflex">
+                    <img src="{% static 'user-avatar-2-circle_150px.png' %}" alt="ImageError" style="height: 25px;" class="pad6_6">
+                    <p class="usernameDropdown pad6_6">{{request.user}}</p>
+                    <img src="{% static 'icons/dropdownicon.png' %}" alt="ImageError" class="MenuIcon pad6_6" style="border:2px solid rgba(14, 218, 157, 0.85);border-radius: 40px;margin-top:5px;">
+                </button>
+                <div class="dropdown-content">
+                    <small class="viewInSmallScreen fontbold">Welcome, <span class="textcapitalize">{{request.user}}</span></small>
+                    <a href="#" style="color: black;">
+                        <img src="{% static 'icons/user.png' %}" alt="ImageError" class="MenuIcon">
+                      Profile
+                    </a>
+                    <a href="/logout" class="logoutOption">
+                        <img src="{% static 'icons/logoutred.png' %}" alt="ImageError" class="MenuIcon">
+                        Logout
+                    </a>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
